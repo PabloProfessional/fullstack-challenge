@@ -1,4 +1,4 @@
-name: fullstack-challenge
+#name: 'x-fullstack-challenge'
 services:
     app:
         build:
