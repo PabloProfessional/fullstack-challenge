@@ -45,7 +45,9 @@ class UserWeatherDataController extends Controller
         //
         $user = User::where('email',$email)->first();
 
-        if ($user->weather->first() == null || $user->weather->first()->created_at->diffInHours() >= 5) {
+        $createdDate = Carbon::parse($user->weather->first()->created_at);
+
+        if ($user->weather->first() == null || $createdDate->diffInHours() >= 5) {
 
             $latest_weather = $this->getUserWeatherData($user);
 
