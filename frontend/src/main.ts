@@ -12,3 +12,6 @@ app.use(createPinia());
 app.use(router);
 
 app.mount("#app");
+
+// https://vuejs.org/api/application.html#app-mount
+// I think this is new stuff

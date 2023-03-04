@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserWeatherdataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,13 @@ Route::get('/', function () {
         'users' => \App\Models\User::all(),
     ]);
 });
+
+
+Route::resource('user_weather',UserWeatherdataController::class);
+
+//Route::get('the_weather/{email}',[UserWeatherdataController::class,'test']);
+
+
+
+
+

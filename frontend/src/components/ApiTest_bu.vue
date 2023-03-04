@@ -2,8 +2,7 @@
   export default {
     data: () => ({
       apiResponse: null,
-      selectedUser: null,
-      userWeatherData: null
+      selectedUser: null
     }),
 
     created() {
@@ -15,21 +14,17 @@
         const url = 'http://localhost/'
         this.apiResponse = await (await fetch(url)).json()
       },
-
       openModal(user) {
         this.selectedUser = user;
-        this.fetchUserWeatherData(user.email);
         $('#exampleModal').modal('show');
       },
-
-      async fetchUserWeatherData(email) {
-        const url = 'http://localhost/user_weather/'+email;
-        this.userWeatherData = await (await fetch(url)).json();
-      },
-
       closeModal() {
         this.selectedUser = null;
         $('#exampleModal').modal('hide');
+      },
+      async fetchUserWeatherData() {
+        const url = 'http://localhost/user_weather'
+        this.apiResponse = await (await fetch(url)).json()
       },
     }
   }
@@ -59,19 +54,8 @@
           </div>
           <div class="modal-body">
             <p>E-mail: {{ selectedUser ? selectedUser.email : '' }}</p>
-            <p>Geo-Location: {{ selectedUser ? selectedUser.latitude : '' }}, {{ selectedUser ? selectedUser.longitude : '' }}</p>
+            <p>Geo-Locatio: {{ selectedUser ? selectedUser.latitude : '' }}, {{ selectedUser ? selectedUser.longitude : '' }}</p>
             
-            <p v-if="userWeatherData">
-
-              {{selectedUser.name}} is experiencing <button class="btn btn-success">{{userWeatherData.weather[0].description}}</button>, with avearge temtaratures of <strong>{{userWeatherData.temp}} &deg;C</strong>, that feels more like <strong>{{userWeatherData.feels_like}} &deg;C</strong>. The humidity is at <strong>{{userWeatherData.humidity}}%</strong>, and the wind speed is <strong>{{userWeatherData.wind_speed}} m/s</strong> coming from <strong>{{userWeatherData.wind_deg}} &deg;</strong>. 
-
-
-            </p>
-
-
-            
-            <p v-else="!userWeatherData">Fetching latest weather data...</p>
-
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
